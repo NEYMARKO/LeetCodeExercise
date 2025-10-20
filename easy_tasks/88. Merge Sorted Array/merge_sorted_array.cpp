@@ -42,6 +42,8 @@ public:
                     moved_2++;
                     continue;
                 }
+                //if nums2 has been spent, just leave everything as it is
+                //because we are appending to nums1 afterall and it is sorted
                 else if (moved_2 > n - 1)
                 {
                     continue;
