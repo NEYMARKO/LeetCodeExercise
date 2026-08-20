@@ -26,7 +26,11 @@ int maxArea(std::vector<int> &height)
     
         else
         {
-            left++;
+            left++; // when both heights area equal it doesn't matter what pointer you are moving
+            //because you will always get a wors water capacity. This is true because you are keeping 
+            // the height constraint bud reducing the width. So if it is a better answer it must be in both
+            // ranges [i + 1, j] and [i, j - 1]. IF it is in both ranges it is in the intersection so it is in 
+            //[i + 1, j -1] which leads to the fact that, when you have equal heights, you can move any of the pointers.
         }
     }
     return max_area;
