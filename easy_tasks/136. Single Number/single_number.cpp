@@ -1,6 +1,7 @@
+#include <vector>
 class Solution {
 public:
-    int singleNumber(vector<int>& nums) {
+    int singleNumber(std::vector<int>& nums) {
         int starting_element = nums[0];
         for (int i = 1; i < nums.size(); i++)
         {

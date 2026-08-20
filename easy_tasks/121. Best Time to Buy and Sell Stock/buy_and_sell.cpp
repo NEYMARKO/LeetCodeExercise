@@ -8,18 +8,20 @@ int maxProfit(std::vector<int>& prices) {
     if (prices.size() == 0) return 0;
     //going until j < prices.size() - 1 because it can't buy on last day since it won't have any
     //days to sell it on (it has to buy it to sell it afterwards) 
-    for (int j = buy_idx + 1; j < prices.size() - 1; j++)
+    for (int i = 1; i < prices.size() - 1; i++)
     {
-        if ((prices.size() - 1 - j < buy_idx) || (sell_idx < buy_idx)) break;
-        if (prices[sell_idx] - prices[j] > last_diff)
+        for (int j = buy_idx + 1; j < prices.size() - 1; j++)
         {
-            buy_idx = j;
-            last_diff = prices[sell_idx] - prices[buy_idx];
-        }
-        if (prices[prices.size() - 1 - j] - prices[buy_idx] > last_diff)
-        {
-            sell_idx = prices.size() - 1 - j;
-            last_diff = prices[sell_idx] - prices[buy_idx];
+            if (prices[j] - prices[buy_idx] > last_diff)
+            {
+                buy_idx = j;
+                last_diff = prices[sell_idx] - prices[buy_idx];
+            }
+            if (prices[prices.size() - 1 - j] - prices[buy_idx] > last_diff)
+            {
+                sell_idx = prices.size() - 1 - j;
+                last_diff = prices[sell_idx] - prices[buy_idx];
+            }
         }
     }
     return last_diff > 0 ? last_diff : 0;
