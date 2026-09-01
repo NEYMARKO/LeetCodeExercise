@@ -9,20 +9,35 @@ struct TreeNode {
 };
 class Solution {
 public:
-    void traverseDFS(std::vector<int>& result, TreeNode* root)
+    /**void traversePostorder(std::vector<int>& result, TreeNode*& root) // passing reference to the address so that I could actually modify what root is pointing to
+                                                                    // addresses are getting passsed by value, which means that only local value of root (the one in the function)
+                                                                    // will get modified, but not the pointer that has been passed as an argument
     {
         if (!root)
         {
             return;
         }
+        traversePostorder(result, root->left);
+        traversePostorder(result, root->right);
+        if (!root->left && !root->right)
+        {
+            result.push_back(root->val);
+        }
+        root = nullptr;
+    }*/
+    void traversePostorder(std::vector<int>& result, TreeNode*& root) // this version does not modify original tree, which makes it more correct
+    {
+        if (!root)
+        {
+            return;
+        }
+        traversePostorder(result, root->left);
+        traversePostorder(result, root->right);
         result.push_back(root->val);
-        if (root->left)
-        traverseDFS(result, root->left);
-        traverseDFS(result, root->right);
     }
-    std::vector<int> preorderTraversal(TreeNode* root) {
+    std::vector<int> postorderTraversal(TreeNode* root) {
         std::vector<int> result;
-        traverseDFS(result, root);
+        traversePostorder(result, root);
         return result;
     }
 };
