@@ -12,12 +12,13 @@ public:
         std::unordered_set<char> used_mappings;
         for (int i = 0; i < s.length(); i++)
         {
-            auto search_front = character_mapping.find(s[i]);
+            auto mapping = character_mapping.find(s[i]);
             // see if this character from string `s` has already been mapped to some other character
-            if (search_front != character_mapping.end())
+            if (mapping != character_mapping.end())
             {
                 // if current character from string `s` has already been mapped to character from string `t`, check if it is the same as current character
-                if (search_front->second != t[i])   // this can't be used together with condition above it, because it will go to else branch when value for key s[i] is equal to t[i]
+                if (mapping->second != t[i]) // shouldn't combine with condition above because else branch should only depend on whether mapping exists
+                                            // and not on the similarity between mapped value and t[i]
                 {
                     return false;
                 }
@@ -43,3 +44,16 @@ public:
         return true;
     }
 };
+
+
+// EXAMPLE: "paper" → "title"
+// p → t
+// a → i
+// e → l
+// r → e
+
+
+// EXAMPLE: "badc" → "baba"
+// b → b
+// a → a
+// d → b  ❌ b is already used by b
