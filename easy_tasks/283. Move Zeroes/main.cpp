@@ -74,11 +74,17 @@ this still has very bad time performance
 */
 
 // IN PROGRESS:
+#include <vector>
+#include <iostream>
 class Solution {
 public:
 
     void swapElements(std::vector<int>& nums, int pos1, int pos2)
     {
+        if (pos1 == -1 || pos2 == -1)
+        {
+            return;
+        }
         int temp = nums[pos1];
         nums[pos1] = nums[pos2];
         nums[pos2] = temp; 
@@ -94,7 +100,7 @@ public:
             {
                 zero_pos = current_pos;
             }
-            else if (nums[current_pos] != 0)
+            else if (nums[current_pos] != 0 && zero_pos != -1)
             {
                 swapElements(nums, zero_pos, current_pos);
                 temp_pos = zero_pos;
@@ -107,3 +113,16 @@ public:
         }
     }
 };
+
+void main()
+{
+    std::vector<int> input = {2,1};
+    Solution sol = Solution();
+    sol.moveZeroes(input);
+    std::cout << "[";
+    for (int el : input)
+    {    
+        std::cout << el << ", ";
+    }
+    std::cout << "]";
+}
